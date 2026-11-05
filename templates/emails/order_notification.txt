@@ -1,0 +1,15 @@
+New COCARRY order
+Order ID: {{ order.order_id|upper }}
+Date: {{ order.created_at|date:"d M Y, H:i" }} IST
+Customer: {{ order.customer_name }}
+Email: {{ order.customer_email }}
+Phone: {{ order.customer_phone }}
+Address: {{ order.address_line }}{% if order.landmark %}, {{ order.landmark }}{% endif %}, {{ order.city }}, {{ order.state }} - {{ order.pincode }}
+{% for item in order.items.all %}{{ item.product_name }} x {{ item.quantity }} = ₹{{ item.line_total|floatformat:2 }}
+{% endfor %}
+Subtotal: ₹{{ order.subtotal }}
+Shipping: ₹{{ order.shipping_fee }}
+Total: ₹{{ order.total_amount }}
+Payment method: {{ order.get_payment_method_display }}
+Payment status: {{ order.payment_status }}
+Order status: {{ order.get_status_display }}

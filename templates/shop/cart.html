@@ -1,0 +1,7 @@
+{% extends "base.html" %}
+{% block title %}Your Bag — COCARRY{% endblock %}
+{% block content %}
+<section class="shop-intro compact"><span class="eyebrow">YOUR LITTLE COLLECTION</span><h1>Your <em>bag.</em></h1></section>
+<section class="cart-layout"><div class="cart-items">{% for item in items %}<article class="cart-item"><img src="{{ item.product.cover_image }}" alt="{{ item.product.name }}"><div class="cart-item-copy"><a href="{% url 'product_detail' item.product.slug %}"><h3>{{ item.product.name }}</h3></a><p>₹{{ item.product.discounted_price|floatformat:0 }} each</p><form method="post" action="{% url 'update_cart' item.product.id %}">{% csrf_token %}<label>Qty <input type="number" name="quantity" min="0" max="{{ item.product.stock }}" value="{{ item.quantity }}"></label><button class="text-link">Update / Remove</button></form></div><strong>₹{{ item.line_total|floatformat:0 }}</strong></article>{% empty %}<div class="empty-cart"><h2>Your bag is feeling lonely.</h2><p>Give it a tote to carry.</p><a class="btn primary" href="{% url 'shop' %}">SHOP TOTES ↗</a></div>{% endfor %}</div>
+{% if items %}<aside class="summary"><h2>Order summary</h2><div><span>Subtotal</span><strong>₹{{ subtotal|floatformat:0 }}</strong></div><div><span>Shipping</span><strong>₹{{ shipping|floatformat:0 }}</strong></div><div class="summary-total"><span>Total</span><strong>₹{{ total|floatformat:0 }}</strong></div><a class="btn primary full" href="{% url 'checkout' %}">PROCEED TO CHECKOUT ↗</a><p>Taxes included · COD available</p></aside>{% endif %}</section>
+{% endblock %}

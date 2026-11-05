@@ -1,0 +1,30 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>{% block title %}COCARRY — Carry Your Vibe{% endblock %}</title>
+  <meta name="description" content="Gen-Z tote bags that carry your vibe. Shop aesthetic, everyday canvas totes at COCARRY.">
+  <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="{% static 'css/style.css' %}">
+</head>
+<body>
+  <div class="announcement">THE TOTE ERA IS HERE ✦ FREE SHIPPING ON ORDERS OVER ₹1,499</div>
+  <header class="site-header">
+    <a class="logo" href="{% url 'home' %}">co<span>carry</span><i>✦</i></a>
+    <button class="menu-toggle" aria-label="Toggle menu" onclick="document.querySelector('.nav-links').classList.toggle('open')">☰</button>
+    <nav class="nav-links"><a href="{% url 'home' %}">Home</a><a href="{% url 'shop' %}">Shop</a><a href="{% url 'shop' %}?sort=newest">New Arrivals</a><a href="{% url 'shop' %}?category=Printed">Printed Totes</a><a href="#about">Our vibe</a></nav>
+    <form class="search" action="{% url 'shop' %}"><input name="q" placeholder="Find your tote..." value="{{ request.GET.q }}"><button aria-label="Search">⌕</button></form>
+    <a class="bag-link" href="{% url 'cart' %}">Bag <span>{{ cart_count }}</span></a>
+  </header>
+  {% if messages %}<div class="messages">{% for message in messages %}<div class="message {{ message.tags }}">{{ message }}</div>{% endfor %}</div>{% endif %}
+  {% block content %}{% endblock %}
+  <footer id="about" class="footer">
+    <div class="footer-brand"><a class="logo light" href="{% url 'home' %}">co<span>carry</span><i>✦</i></a><p>Carry your vibe.<br>Make every day a little more you.</p></div>
+    <div><h4>Explore</h4><a href="{% url 'shop' %}">Shop all totes</a><a href="{% url 'shop' %}?sort=newest">New arrivals</a><a href="{% url 'cart' %}">Your bag</a></div>
+    <div><h4>Need help?</h4><a href="mailto:cocarrytotes@gmail.com">cocarrytotes@gmail.com</a><p>Made for your everyday ✿</p></div>
+    <div class="footer-bottom">© 2026 COCARRY. Carry Your Vibe. <span>Designed for the everyday main character.</span></div>
+  </footer>
+  <script src="{% static 'js/main.js' %}"></script>
+</body></html>

@@ -1,0 +1,6 @@
+{% extends "base.html" %}
+{% block title %}Shop Totes — COCARRY{% endblock %}
+{% block content %}
+<section class="shop-intro"><span class="eyebrow">THE COCARRY COLLECTION</span><h1>Find your <em>everyday</em> tote.</h1><p>One bag. A hundred ways to show up.</p></section>
+<section class="section shop-section"><div class="shop-toolbar"><span>{{ products|length }} totes to love</span><form><input type="search" name="q" placeholder="Search totes" value="{{ query }}"><select name="sort" onchange="this.form.submit()"><option value="">Sort by</option><option value="price_low">Price: low to high</option><option value="price_high">Price: high to low</option><option value="newest">Newest</option></select><button class="btn small">GO</button></form></div><div class="product-grid">{% for product in products %}{% include "shop/_product_card.html" %}{% empty %}<p>No totes found. Try another search.</p>{% endfor %}</div></section>
+{% endblock %}

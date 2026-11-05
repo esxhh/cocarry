@@ -1,0 +1,5 @@
+{% extends "base.html" %}
+{% block title %}Order Placed — COCARRY{% endblock %}
+{% block content %}
+<section class="success-page"><div class="success-icon">✓</div><span class="eyebrow">IT'S OFFICIALLY YOURS</span><h1>Order <em>placed!</em></h1><p>Thanks for carrying COCARRY into your world. Your order has been saved.</p><div class="success-card"><span>ORDER ID</span><strong>#{{ order.order_id|upper }}</strong><span>ORDER TOTAL</span><strong>₹{{ order.total_amount|floatformat:0 }}</strong><span>CONFIRMATION</span><p>Order details and notifications are sent to the brand inbox and customer email when SMTP is configured.</p></div><a class="btn primary" href="{% url 'shop' %}">KEEP EXPLORING ↗</a></section>
+{% endblock %}
