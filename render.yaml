@@ -12,13 +12,3 @@ services:
         value: "False"
       - key: SECRET_KEY
         generateValue: true
-      - key: DATABASE_URL
-        fromDatabase:
-          name: cocarry-db
-          property: connectionString
-databases:
-  - name: cocarry-db
-    databaseName: cocarry
-    user: cocarry
-    plan: free
-    region: singapore

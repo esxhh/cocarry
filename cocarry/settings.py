@@ -61,15 +61,13 @@ if DATABASE_URL:
             conn_health_checks=True,
         )
     }
-elif DEBUG:
+else:
     DATABASES = {
         "default": {
             "ENGINE": "django.db.backends.sqlite3",
             "NAME": BASE_DIR / "db.sqlite3",
         }
     }
-else:
-    raise ImproperlyConfigured("DATABASE_URL must be set when DEBUG is False.")
 AUTH_PASSWORD_VALIDATORS = [
     {"NAME": "django.contrib.auth.password_validation.UserAttributeSimilarityValidator"},
     {"NAME": "django.contrib.auth.password_validation.MinimumLengthValidator"},

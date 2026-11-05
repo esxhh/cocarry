@@ -31,21 +31,15 @@ Open http://127.0.0.1:8000/ and admin at http://127.0.0.1:8000/admin/.
 ## Deploy to Render
 
 The repository includes a Render Blueprint in `render.yaml`. It creates the
-Singapore web service and free PostgreSQL database and connects them
-automatically. Both use Render's free plans, so no paid resources are required.
-The web service can spin down when idle, and the free database is temporary:
-Render expires it after its free period. Use this deployment as a demo, not for
-reliable order storage.
+Singapore web service on Render's free plan, with no paid database or other
+paid resources. The demo uses SQLite on the service's temporary filesystem.
+Render can spin the service down and discard its filesystem on a restart or
+deploy, so products and orders may reset or be lost. Do not use this deployment
+for reliable order storage.
 
 Push this repository to GitHub, then create a new Blueprint from it in the
 Render dashboard. Render generates the `SECRET_KEY`; `DEBUG` is disabled. The
-deploy runs migrations and seeds the catalog only when the database is empty,
-so later deploys do not reset products or inventory.
-
-The free web plan does not include Render Shell; to create an admin account,
-install the requirements in a local checkout, set `DATABASE_URL` temporarily
-to the database's external connection URL, and run
-`python manage.py createsuperuser`. Clear the environment variable afterward.
+service runs migrations and seeds the catalog when it starts.
 Configure `EMAIL_HOST_USER`, `EMAIL_HOST_PASSWORD`, and related SMTP variables
 in the Render dashboard if checkout emails should be delivered. Do not put
 production secrets in Git.
