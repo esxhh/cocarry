@@ -30,22 +30,20 @@ Open http://127.0.0.1:8000/ and admin at http://127.0.0.1:8000/admin/.
 
 ## Deploy to Render
 
-The repository includes a Render Blueprint in `render.yaml`. The web service is
-configured on Render's free web plan; it can spin down when idle. Before
-creating the Blueprint:
+The repository includes a Render Blueprint in `render.yaml`. It creates the
+Singapore web service and a persistent PostgreSQL database and connects them
+automatically. The web service uses Render's free plan and can spin down when
+idle; the database uses Render's smallest persistent plan and incurs a charge.
+Deploying the Blueprint creates billable resources.
 
-1. Create a **persistent PostgreSQL** database in the Render dashboard in the
-   Singapore region. Do not use an expiring free database for customer orders.
-2. Push this repository to GitHub and connect it to Render.
-3. Create a new Blueprint from the repository. When prompted for `DATABASE_URL`,
-   provide the database's **internal** connection URL. Render will generate the
-   production `SECRET_KEY`; `DEBUG` is disabled.
+Push this repository to GitHub, then create a new Blueprint from it in the
+Render dashboard. Render generates the production `SECRET_KEY`; `DEBUG` is
+disabled. The deploy runs migrations and seeds the catalog only when the
+database is empty, so later deploys do not reset products or inventory.
 
-Each deploy installs dependencies, collects static files, and runs migrations.
-The catalog is seeded only when the database is empty, so later deploys do not
-reset products or inventory. The free web plan does not include Render Shell;
-to create an admin account, install the requirements in a local checkout, set
-`DATABASE_URL` temporarily to the database's external connection URL, and run
+The free web plan does not include Render Shell; to create an admin account,
+install the requirements in a local checkout, set `DATABASE_URL` temporarily
+to the database's external connection URL, and run
 `python manage.py createsuperuser`. Clear the environment variable afterward.
 Configure `EMAIL_HOST_USER`, `EMAIL_HOST_PASSWORD`, and related SMTP variables
 in the Render dashboard if checkout emails should be delivered. Do not put
