@@ -20,6 +20,5 @@ databases:
   - name: cocarry-db
     databaseName: cocarry
     user: cocarry
-    plan: 0.1c-256mb
+    plan: free
     region: singapore
-    diskSizeGB: 1

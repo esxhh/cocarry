@@ -31,15 +31,16 @@ Open http://127.0.0.1:8000/ and admin at http://127.0.0.1:8000/admin/.
 ## Deploy to Render
 
 The repository includes a Render Blueprint in `render.yaml`. It creates the
-Singapore web service and a persistent PostgreSQL database and connects them
-automatically. The web service uses Render's free plan and can spin down when
-idle; the database uses Render's smallest persistent plan and incurs a charge.
-Deploying the Blueprint creates billable resources.
+Singapore web service and free PostgreSQL database and connects them
+automatically. Both use Render's free plans, so no paid resources are required.
+The web service can spin down when idle, and the free database is temporary:
+Render expires it after its free period. Use this deployment as a demo, not for
+reliable order storage.
 
 Push this repository to GitHub, then create a new Blueprint from it in the
-Render dashboard. Render generates the production `SECRET_KEY`; `DEBUG` is
-disabled. The deploy runs migrations and seeds the catalog only when the
-database is empty, so later deploys do not reset products or inventory.
+Render dashboard. Render generates the `SECRET_KEY`; `DEBUG` is disabled. The
+deploy runs migrations and seeds the catalog only when the database is empty,
+so later deploys do not reset products or inventory.
 
 The free web plan does not include Render Shell; to create an admin account,
 install the requirements in a local checkout, set `DATABASE_URL` temporarily
