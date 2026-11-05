@@ -42,8 +42,11 @@ creating the Blueprint:
    production `SECRET_KEY`; `DEBUG` is disabled.
 
 Each deploy installs dependencies, collects static files, and runs migrations.
-After the first deploy, use the Render Shell to run
-`python manage.py seed_products` and `python manage.py createsuperuser`.
+The catalog is seeded only when the database is empty, so later deploys do not
+reset products or inventory. The free web plan does not include Render Shell;
+to create an admin account, install the requirements in a local checkout, set
+`DATABASE_URL` temporarily to the database's external connection URL, and run
+`python manage.py createsuperuser`. Clear the environment variable afterward.
 Configure `EMAIL_HOST_USER`, `EMAIL_HOST_PASSWORD`, and related SMTP variables
 in the Render dashboard if checkout emails should be delivered. Do not put
 production secrets in Git.

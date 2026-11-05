@@ -4,7 +4,7 @@ services:
     runtime: python
     plan: free
     region: singapore
-    buildCommand: pip install -r requirements.txt && python manage.py collectstatic --no-input && python manage.py migrate --noinput
+    buildCommand: pip install -r requirements.txt && python manage.py collectstatic --no-input && python manage.py migrate --noinput && python manage.py shell -c "from django.core.management import call_command; from shop.models import Product; Product.objects.exists() or call_command('seed_products')"
     startCommand: gunicorn cocarry.wsgi:application --bind 0.0.0.0:$PORT
     healthCheckPath: /
     envVars:
